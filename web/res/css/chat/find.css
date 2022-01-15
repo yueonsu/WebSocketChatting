@@ -1,0 +1,13 @@
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 1px solid black;
+}
+
+#clickTr:hover {
+    cursor: pointer;
+    background-color: black;
+    color: white;
+}

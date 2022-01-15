@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="chat.room.RoomMapper">
+    <select id="selRoomList" resultType="RoomVO">
+        SELECT A.iroom, A.rnm, A.room_master,
+               B.nm AS rmaster
+        FROM c_room A
+        INNER JOIN c_user B
+        ON B.iuser = A.room_master
+    </select>
+
+    <select id="selRoom" resultType="RoomVO">
+        SELECT * FROM c_room
+        WHERE iroom = #{iroom}
+    </select>
+
+    <insert id="insRoom" parameterType="chat.model.RoomEntity">
+        <selectKey resultType="int" keyProperty="iroom" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+        INSERT INTO c_room
+        (rnm, room_master)
+        VALUES
+        (#{rnm}, #{room_master})
+    </insert>
+
+    <delete id="closeRoom">
+        DELETE FROM c_room WHERE iroom = #{iroom}
+    </delete>
+</mapper>
